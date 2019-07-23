@@ -1,5 +1,7 @@
 package com.etrianfallout.minimapreplay.MinimapReplay.api;
 
+import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotMatch;
+import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotMatchlist;
 import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotSummoner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -15,6 +17,14 @@ public class RiotApi {
 
     public RiotSummoner  getSummonerByName(String summonerName) {
         return restTemplate.exchange(requestUrl + "/lol/summoner/v4/summoners/by-name/{summonerName}?api_key={apiKey}", HttpMethod.GET, null, RiotSummoner.class, summonerName, apiKey ).getBody();
+    }
+
+    public RiotMatchlist getMatchlistsByAccountId(String encryptedAccountId) {
+        return restTemplate.exchange(requestUrl + "/lol/match/v4/matchlists/by-account/{encryptedAccountId}?api_key={apiKey}", HttpMethod.GET, null, RiotMatchlist.class, encryptedAccountId, apiKey).getBody();
+    }
+
+    public RiotMatch getMatchByMatchId(String matchId) {
+        return restTemplate.exchange(requestUrl + "/lol/match/v4/matches/{matchId}?api_key={apiKey}", HttpMethod.GET, null, RiotMatch.class, matchId, apiKey).getBody();
     }
 
 }
