@@ -13,8 +13,8 @@ public class RiotApi {
     private final String apiKey = ""; //Api Key Required
     private final String requestUrl = "https://kr.api.riotgames.com";
 
-    public String getEncryptedAccountIdByName(String summonerName) {
-        return restTemplate.exchange(requestUrl + "/lol/summoner/v4/summoners/by-name/{summonerName}?api_key={apiKey}", HttpMethod.GET, null, RiotSummoner.class, summonerName, apiKey ).getBody().getAccountId();
+    public RiotSummoner  getSummonerByName(String summonerName) {
+        return restTemplate.exchange(requestUrl + "/lol/summoner/v4/summoners/by-name/{summonerName}?api_key={apiKey}", HttpMethod.GET, null, RiotSummoner.class, summonerName, apiKey ).getBody();
     }
 
 }
