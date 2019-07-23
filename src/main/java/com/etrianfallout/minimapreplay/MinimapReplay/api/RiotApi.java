@@ -1,6 +1,7 @@
 package com.etrianfallout.minimapreplay.MinimapReplay.api;
 
 import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotMatch;
+import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotMatchTimeline;
 import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotMatchlist;
 import com.etrianfallout.minimapreplay.MinimapReplay.domain.RiotSummoner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class RiotApi {
     @Autowired
     private RestTemplate restTemplate;
-    private final String apiKey = ""; //Api Key Required
+    private final String apiKey = "RGAPI-b4822a25-e92c-47b0-b9a3-4ed19b2d15bf"; //Api Key Required
     private final String requestUrl = "https://kr.api.riotgames.com";
 
     public RiotSummoner  getSummonerByName(String summonerName) {
@@ -27,4 +28,7 @@ public class RiotApi {
         return restTemplate.exchange(requestUrl + "/lol/match/v4/matches/{matchId}?api_key={apiKey}", HttpMethod.GET, null, RiotMatch.class, matchId, apiKey).getBody();
     }
 
+    public RiotMatchTimeline getTimelineByMatchId(String matchId) {
+        return restTemplate.exchange(requestUrl + "/lol/match/v4/timelines/by-match/{matchId}?api_key={apiKey}", HttpMethod.GET, null, RiotMatchTimeline.class, matchId, apiKey).getBody();
+    }
 }
