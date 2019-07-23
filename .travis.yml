@@ -1,0 +1,5 @@
+language: java
+
+before-install:
+  - chmod +x mvnw
+  
