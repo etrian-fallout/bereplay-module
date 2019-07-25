@@ -1,6 +1,7 @@
 package com.etrianfallout.minimapreplay.MinimapReplay.api;
 
 import com.etrianfallout.minimapreplay.MinimapReplay.domain.PubgMatch;
+import com.etrianfallout.minimapreplay.MinimapReplay.domain.PubgMatchReference;
 import com.google.gson.Gson;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PubgApi {
@@ -20,6 +22,7 @@ public class PubgApi {
 
     private final String requestUrl = "api.pubg.com";
     private final String PLAYER_URL = "players";
+    private final String MATCH_URL = "matches";
 
     public List<PubgMatch.Match> getMatchByName(String playerName, String platform) {
         OkHttpClient client = new OkHttpClient();
@@ -45,6 +48,37 @@ public class PubgApi {
                     .getRelationships().getMatches().getData();
 
             return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public PubgMatchReference getMatchInfo(String matchId, String platform) {
+        OkHttpClient client = new OkHttpClient();
+
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme("https").host(requestUrl)
+                .addPathSegment("shards").addPathSegment(platform).addPathSegment(MATCH_URL).addPathSegment(matchId)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(httpUrl)
+                .get()
+                .addHeader("Accept", "application/vnd.api+json")
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            Gson gson = new Gson();
+            PubgMatchReference match = gson.fromJson(response.body().string(), PubgMatchReference.class);
+            match.setIncluded(match.getIncluded()
+                    .stream()
+                    .filter(x -> x.getType().equals("asset"))
+                    .collect(Collectors.toList()));
+
+            return match;
         } catch (IOException e) {
             e.printStackTrace();
         }
