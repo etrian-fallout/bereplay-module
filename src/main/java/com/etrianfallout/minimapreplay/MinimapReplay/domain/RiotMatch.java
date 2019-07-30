@@ -21,13 +21,13 @@ public class RiotMatch {
     private List<TeamStats> teams;
 
     @Data
-    public static class ParticipantIdentity {
+    private static class ParticipantIdentity {
         private int participantId;
         private Player player;
     }
 
     @Data
-    public static class Player {
+    private static class Player {
         private String currentPlatformId;
         private String summonerName;
         private String platformId;
@@ -38,7 +38,7 @@ public class RiotMatch {
     }
 
     @Data
-    public static class TeamStats {
+    private static class TeamStats {
         private boolean firstDragon;
         private boolean firstInhibitor;
         private List<TeamBans> bans;
@@ -58,7 +58,7 @@ public class RiotMatch {
     }
 
     @Data
-    public static class TeamBans {
+    private static class TeamBans {
         private int pickTurn;
         private int championId;
     }
