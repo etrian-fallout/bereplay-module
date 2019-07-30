@@ -75,7 +75,7 @@ public class PubgApi {
             PubgMatchReference match = gson.fromJson(response.body().string(), PubgMatchReference.class);
             match.setIncluded(match.getIncluded()
                     .stream()
-                    .filter(x -> x.getType().equals("asset"))
+                    .filter(x -> x.getType().equals("asset") || x.getType().equals("participant"))
                     .collect(Collectors.toList()));
 
             return match;

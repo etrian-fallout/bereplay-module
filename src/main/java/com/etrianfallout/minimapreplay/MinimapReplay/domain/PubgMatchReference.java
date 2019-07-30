@@ -33,6 +33,14 @@ public class PubgMatchReference {
     public static class IncludeAttributes {
         private String createdAt;
         private String URL;
+        private Stats stats;
+    }
+
+    @Data
+    private static class Stats {
+        private int kills;
+        private int winPlace;
+        private String name;
     }
 }
 
