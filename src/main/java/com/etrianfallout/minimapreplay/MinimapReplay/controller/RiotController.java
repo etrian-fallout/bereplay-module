@@ -40,7 +40,7 @@ public class RiotController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/lol/match/timlines/{matchId}")
+    @GetMapping("/lol/match/timelines/{matchId}")
     public RiotMatchTimeline getTimelineByMatchId(@PathVariable String matchId) {
         return riotService.getTimelineByMatchid(matchId);
     }
