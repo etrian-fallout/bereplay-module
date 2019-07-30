@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class RiotApi {
     @Autowired
     private RestTemplate restTemplate;
-    private final String apiKey = "RGAPI-b4822a25-e92c-47b0-b9a3-4ed19b2d15bf"; //Api Key Required
+    private final String apiKey = ""; //Api Key Required
     private final String requestUrl = "https://kr.api.riotgames.com";
 
     public RiotSummoner  getSummonerByName(String summonerName) {

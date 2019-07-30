@@ -21,6 +21,11 @@ public class RiotService {
         return riotApi.getMatchlistsByAccountId(encryptedAccountId);
     }
 
+    public RiotMatchlist getMatchlistsByName(String summonerName) {
+        String accountId = this.getEncryptedAccountIdByName(summonerName);
+        return this.getMatchlistsByAccountId(accountId);
+    }
+
     public RiotMatch getMatchByMatchId(String matchId) {
         return riotApi.getMatchByMatchId(matchId);
     }
@@ -28,4 +33,5 @@ public class RiotService {
     public RiotMatchTimeline getTimelineByMatchid(String matchId) {
         return riotApi.getTimelineByMatchId(matchId);
     }
+
 }

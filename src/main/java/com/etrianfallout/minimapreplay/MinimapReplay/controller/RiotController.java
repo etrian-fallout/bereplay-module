@@ -28,6 +28,12 @@ public class RiotController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/lol/match/matchlists/by-name/{summonerName}")
+    public RiotMatchlist getMatchlistByName(@PathVariable String summonerName) {
+        return riotService.getMatchlistsByName(summonerName);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/lol/match/matches/{matchId}")
     public RiotMatch getMatchByMatchId(@PathVariable String matchId) {
         return riotService.getMatchByMatchId(matchId);
